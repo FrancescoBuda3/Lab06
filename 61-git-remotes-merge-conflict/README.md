@@ -11,6 +11,14 @@ Prima di eseguire ogni operazione sul worktree o sul repository,
 si verifichi lo stato del repository con `git status`.
 
 1. Si cloni localmente il repository
+
+> git status
+> On branch exercises
+Your branch is up to date with 'origin/exercises'.
+
+nothing to commit, working tree clean
+
+
 2. Ci si assicuri di avere localmente entrambi i branch remoti
 3. Si faccia il merge di `feature` dentro `master`, ossia: si posizioni la `HEAD` su `master`
    e da qui si esegua il merge di `feature`
