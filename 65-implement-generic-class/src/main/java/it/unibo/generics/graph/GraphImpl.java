@@ -1,11 +1,12 @@
 package it.unibo.generics.graph;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import it.unibo.generics.graph.api.Graph;
 
@@ -35,8 +36,8 @@ public class GraphImpl<N> implements Graph<N>{
         if (source != null && target != null) {
             this.edges.putIfAbsent(source, new HashSet<>());
             this.edges.get(source).add(target);
-            this.edges.putIfAbsent(target, new HashSet<>());
-            this.edges.get(target).add(source);
+            //this.edges.putIfAbsent(target, new HashSet<>());
+            //this.edges.get(target).add(source);
         }
     }
 
@@ -46,16 +47,34 @@ public class GraphImpl<N> implements Graph<N>{
     }
 
     @Override
-    public Set<N> linkedNodes(Object node) {
+    public Set<N> linkedNodes(N node) {
         return Set.copyOf(edges.get(node));
     }
 
     @Override
-    public List<N> getPath(Object source, Object target) {
-        List<N> path = new ArrayList<>();
-
+    public List<N> getPath(N source, N target) {
+        Stack<N> path = new Stack<>();
+        path.add(source);
+        buildPath(path, target);
         return path;
     }
+
+    private void buildPath(Stack<N> path, N target) {
+        
+
+        for (N tmp : this.edges.get(path.peek())) {
+            if (!path.contains(tmp)) {
+                path.add(tmp);
+                buildPath(path, target);
+            } 
+            if (path.peek() == target){
+                return;
+            }  
+        }
+        path.pop();
+    }
+
+
 
    
 
